@@ -1,0 +1,62 @@
+﻿@using OnlineTicariOtomasyon.Models.Siniflar
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Urun>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+@using (Html.BeginForm("Index", "Urun", FormMethod.Get))
+{
+    <p>
+        Ürün Adı:@Html.TextBox("p")
+        <input type="submit" value="ara" />
+    </p>
+}
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>ÜRÜN</th>
+        <th>MARKA</th>
+        <th>STOK</th>
+        <th>ALIŞ FİYAT</th>
+        <th>SATIŞ FİYAT</th>
+        <th>KATEGORİ</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+        <th>Satış Yap</th>
+
+    </tr>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.UrunAd</td>
+            <td>@u.Marka</td>
+            <td>@u.Stok</td>
+            <td>@u.AlisFiyati ₺</td>
+            <td>@u.SatisFiyati ₺ </td>
+            <td>@u.Kategori.KategoriAd</td>
+            <td>
+                <a href="/Urun/UrunSil/@u.Urunid" class="btn btn-danger" onclick="return confirm('Gerçekten Silmek İstiyor Musunuz?')">Ürün Sil</a>
+            </td>
+            <td>
+                <a href="/Urun/UrunGetir/@u.Urunid" class="btn btn-info">Ürün Güncelle</a>
+            </td>
+            <td>
+                <a href="/Urun/SatisYap/@u.Urunid" class="btn btn-success">Satış Yap</a>
+            </td>
+        </tr>
+
+    }
+</table>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }),
+new PagedListRenderOptions
+{
+    LiElementClasses = new List<string>
+    { "page-link"}
+
+})
+
+<a href="/Urun/YeniUrun/" class="btn btn-info ">Yeni Ürün</a>
+

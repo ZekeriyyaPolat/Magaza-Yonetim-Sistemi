@@ -1,0 +1,46 @@
+﻿@using OnlineTicariOtomasyon.Models.Siniflar
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<KargoDetay>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<h2>Kargo</h2>
+<br />
+@using (Html.BeginForm("Index", "Kargo", FormMethod.Get))
+{
+    <p>
+        Kargo Takip No:@Html.TextBox("p")
+        <input type="submit" value="ara" />
+    </p>
+}
+<table class="table table-bordered" style="margin-top:20px;">
+    <tr>
+        <th>Personel</th>
+        <th>Alıcı</th>
+        <th>Tarih</th>
+        <th>Kargo Takip No</th>
+        <th>Detaylar</th>
+    </tr>
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>@k.Personel</td>
+            <td>@k.Alıcı</td>
+            <td>@k.Tarih</td>
+            <td>@k.TakipKodu</td>
+            <td><a href="/Kargo/KargoTakip/@k.TakipKodu" class="btn btn-success" style="background-color:lightcoral">Detaylar</a></td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }),
+new PagedListRenderOptions
+{
+    LiElementClasses = new List<string>
+    { "page-link"}
+
+})
+<a href="/Kargo/YeniKargo" class="btn btn-success">Kargo Girişi</a>

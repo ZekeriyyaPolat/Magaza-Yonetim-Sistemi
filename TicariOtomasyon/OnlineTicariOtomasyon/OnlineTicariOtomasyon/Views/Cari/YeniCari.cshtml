@@ -1,0 +1,30 @@
+﻿@model OnlineTicariOtomasyon.Models.Siniflar.Cari
+@{
+    ViewBag.Title = "YeniCari";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+<h2>Yeni Müşteri Ekleme Sayfası</h2>
+<br />
+
+
+@using (Html.BeginForm("YeniCari", "Cari", FormMethod.Post))
+{
+    @*<form class="form-group" method="post">*@
+    @Html.LabelFor(x => x.CariAd)
+    @Html.TextBoxFor(x => x.CariAd, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.CariSoyad)
+    @Html.TextBoxFor(x => x.CariSoyad, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.CariSehir)
+    @Html.TextBoxFor(x => x.CariSehir, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(x => x.CariMail)
+    @*@Html.TextBoxFor(x => x.CariMail, new { @class = "form-control" })*@
+    <input type="text" class="form-control" name="CariMail" />
+    <br />
+
+    <button class="btn btn-info btn-lg" onclick="">Kaydet</button>
+    @*</form>*@
+}
